@@ -8,7 +8,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const cors = require("cors");
 var corsOptions = {
-    origin: "http://localhost:3000"
+    origin: "https://desolate-fortress-25081.herokuapp.com/"
   };
   app.use(cors(corsOptions));
 app.use(
