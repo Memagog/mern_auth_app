@@ -16,7 +16,11 @@ app.use(
         extended: false
     })
 );
-
+app.use(express.static('client/build'));
+app.use((req, res) =>{
+    res.sendFile(path.join(__dirname, './client/itra_app/build/index.html'));
+    
+});
 app.use(bodyParser.json());
 const db = require("./config/key").mongoURI;
 
