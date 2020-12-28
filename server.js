@@ -8,7 +8,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const cors = require("cors");
 var corsOptions = {
-    origin: "https://desolate-fortress-25081.herokuapp.com/"
+    origin: "http://localhost:3000"
   };
   app.use(cors(corsOptions));
 app.use(
@@ -16,11 +16,11 @@ app.use(
         extended: false
     })
 );
-app.use(express.static('client/build'));
-app.use((req, res) =>{
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
+// app.use(express.static('client/build'));
+// app.use((req, res) =>{
+//     res.sendFile(path.join(__dirname, './client/build/index.html'));
     
-});
+// });
 app.use(bodyParser.json());
 const db = require("./config/key").mongoURI;
 
