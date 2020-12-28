@@ -32,7 +32,7 @@ class Checkbox extends React.Component {
 class Home extends Component {
   
     componentDidMount(){
-        this.props.fetchData("http://localhost:5000/api/users/home");
+        this.props.fetchData("https://desolate-fortress-25081.herokuapp.com//home");
         
     }
    
