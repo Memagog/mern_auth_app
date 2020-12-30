@@ -10,7 +10,7 @@ import {personsFetchData} from "../../actions/personsFetch";
 class Home extends Component {
   
     componentDidMount(){
-        this.props.fetchData("http://localhost:5000/api/users/home");
+        this.props.fetchData("/api/users/home");
         
     }
    
