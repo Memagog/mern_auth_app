@@ -49,6 +49,7 @@ class Home extends Component {
                                     <th scope="col">Email</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Role</th>
                                    
                                     </tr>
                                 </thead>
@@ -66,6 +67,7 @@ class Home extends Component {
                                     <td>{persons.email}</td>
                                     <td>{persons.date}</td>
                                     <td>{persons.status? "Online" : "Ban"}</td>
+                                    <td>{persons.roles}</td>
                                     <td>    
                                      
                                     </td>

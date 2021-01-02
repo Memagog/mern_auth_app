@@ -9,6 +9,7 @@ const users = require("./routes/api/users");
 const cors = require("cors");
 var corsOptions = {
     origin: "https://immense-crag-69126.herokuapp.com"
+   
   };
   app.use(cors(corsOptions));
 app.use(
@@ -23,6 +24,7 @@ app.use(
 // });
 app.use(bodyParser.json());
 const db = require("./config/key").mongoURI;
+const rolesInit = require("./createRoles");
 
 
 mongoose.connect(
@@ -30,7 +32,11 @@ mongoose.connect(
     , {useNewUrlParser: true},
     {useUnifiedTopology: true}
 )
-.then(()=> console.log("MongoDb successfully connected"))
+.then(
+    ()=> {
+        console.log("MongoDb successfully connected")
+        rolesInit();
+})
 .catch( err => console.log(err));
 
 app.use(passport.initialize());

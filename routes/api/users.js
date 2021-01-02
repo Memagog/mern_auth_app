@@ -9,10 +9,12 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 const User = require("../../models/User");
+const Role = require("../../models/Role");
+const register = require("../../validation/register");
 
 router.post("/register",(req,res)=>{
     const {errors, isValid} = validateRegisterInput(req.body);
-
+    const userRole = Role.findOne({name:'user'})
     if(!isValid){
         return res.status(400).json(errors);
     }
@@ -22,15 +24,18 @@ router.post("/register",(req,res)=>{
             return res.status(400).json({email: "Email already exists"});
         } 
         else {
+            
             const newUser = new User (
                 {
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password,
                     data: req.body.data,
-                    status: req.body.status
+                    status: req.body.status,
+                    roles: req.body.roles || 'user'
                 }
             );
+            console.log(newUser.roles)
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash)=> {
                     if(err) throw err;

@@ -22,7 +22,13 @@ const UserSchema = new Schema({
     status: {
         type: Boolean,
         required: true
-    }
+    }, 
+    roles: [
+        {
+        type: String,
+        ref: "Role"
+        }
+    ]
 });
 
 
