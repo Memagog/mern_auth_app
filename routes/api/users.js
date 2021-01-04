@@ -12,13 +12,15 @@ const User = require("../../models/User");
 const Role = require("../../models/Role");
 const register = require("../../validation/register");
 
+const roleMiddleware = require("../../middleware/roleMiddleware");
+
 router.post("/register",(req,res)=>{
     const {errors, isValid} = validateRegisterInput(req.body);
     const userRole = Role.findOne({name:'user'})
     if(!isValid){
         return res.status(400).json(errors);
     }
-
+   
     User.findOne({email: req.body.email}).then(user=> {
         if(user){
             return res.status(400).json({email: "Email already exists"});
@@ -35,7 +37,7 @@ router.post("/register",(req,res)=>{
                     roles: req.body.roles || 'user'
                 }
             );
-            console.log(newUser.roles)
+            
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash)=> {
                     if(err) throw err;
@@ -69,18 +71,19 @@ router.post("/login",(req,res)=>{
             if(isMatch){
                 const payload = {
                     id: user.id,
-                    name: user.name
+                    // name: user.name, 
+                    roles: user.roles
                 };
                 jwt.sign(
                     payload,
                     keys.secretOrKey,
                     {
-                        expiresIn: 31156926
+                        expiresIn: "24h"
                     },
                     (err, token)=>{
                         res.json({
                             success: true,
-                            token: "Bearer" + token
+                            token: "Bearer " + token
                         });
                        
                     }
@@ -95,13 +98,8 @@ router.post("/login",(req,res)=>{
     });
 });
 
-router.get("/home",(req,res)=>{
-        User.find({})
-        .then(user => {
-
-            res.send(user)
-        });
-});
+router.get("/home",roleMiddleware(['user']))
+            
 router.delete("/home/:id",(req,res)=>{
   User.deleteOne({_id: req.params.id})
   .then(user => {
