@@ -45,10 +45,10 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />        
-            
+            <Route path="/logout" component={Logout} />
            
             <Switch>
-              <PrivateRoute exact path="/logout" component={Logout} />
+             
               <PrivateRoute exact path="/home" component={Home} />
               
             </Switch>

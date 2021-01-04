@@ -98,7 +98,7 @@ router.post("/login",(req,res)=>{
     });
 });
 
-router.get("/home",roleMiddleware(['user']))
+router.get("/home",roleMiddleware(['admin']))
             
 router.delete("/home/:id",(req,res)=>{
   User.deleteOne({_id: req.params.id})
